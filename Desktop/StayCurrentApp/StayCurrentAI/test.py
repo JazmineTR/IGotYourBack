@@ -4,7 +4,7 @@ from transformers import pipeline
 import newspaper
 
 def is_news_site(url):
-    news_urls = ["cnn.com", "foxnews.com", "nytimes.com", "washingtonpost.com", "nbcnews.com", "apnews.com", "bbcnews.com", "aljazeera.com", "wsj.com"]
+    news_urls = ["cnn", "foxnews", "nytimes", "washingtonpost", "nbcnews", "apnews", "bbcnews", "aljazeera", ]
     for string in news_urls:
         if string in url:
             return True
@@ -26,6 +26,7 @@ def get_news_articles(tags):
 
     search_url = f"https://www.googleapis.com/customsearch/v1?key={api_key}&cx={search_engine_id}&q={tags}&num={num_results}"
     response = requests.get(search_url)
+    print("hi")
     print(response)
     search_results = response.json()
     print(search_results)

@@ -184,7 +184,7 @@ export default function ChatbotScreen() {
         <View style={styles.inputWrapper}>
           <TextInput
             style={styles.textInput}
-            placeholder="Ask me about posture, exercises, or pregnancy tips..."
+            placeholder="Ask me about posture, exercises, or maternity tips..."
             placeholderTextColor={colors.textLight}
             value={inputText}
             onChangeText={setInputText}

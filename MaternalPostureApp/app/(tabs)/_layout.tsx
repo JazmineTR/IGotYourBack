@@ -27,7 +27,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'Ask Gemini questions',
+          title: 'Ask Questions',
           tabBarIcon: ({ color }) => (
             <Image
               source={require('@/assets/images/Icon-round-Question_mark.svg.png')}

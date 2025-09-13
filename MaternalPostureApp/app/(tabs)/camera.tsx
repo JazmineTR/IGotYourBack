@@ -4,6 +4,7 @@ import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import { useRef, useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+
 export default function Camera() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();

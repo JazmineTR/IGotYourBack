@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
+import { askGemini } from '@/components/gemini';
 
 // Color palette for nurturing/motherly theme
 const colors = {
@@ -64,7 +65,7 @@ export default function ChatbotScreen() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: 'Hello! I\'m your pregnancy posture assistant. How can I help you today? 🤗',
+      text: 'Hello! I\'m your maternity posture assistant. How can I help you today? Also, please be patient with me! 🤗',
       sender: 'bot',
       timestamp: new Date()
     }
@@ -72,7 +73,7 @@ export default function ChatbotScreen() {
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
-  const sendMessage = () => {
+  const sendMessage = async() => {
     if (inputText.trim() === '') return;
 
     // Add user message
@@ -87,30 +88,42 @@ export default function ChatbotScreen() {
     setInputText('');
     setIsTyping(true);
 
-    // TODO: Replace this with your AI chatbot logic
-    // Simulate bot response (replace this entire setTimeout with your AI integration)
-    setTimeout(() => {
-      const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: 'Thanks for your message! I\'m here to help with your posture questions during pregnancy. This is where your AI response will appear.',
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      
-      setMessages(prev => [...prev, botMessage]);
-      setIsTyping(false);
-    }, 2000);
-  };
+    try {
+    // Call your Gemini helper
+    const botReply = await askGemini(inputText);
+
+    const botMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      text: botReply,
+      sender: 'bot',
+      timestamp: new Date(),
+    };
+
+    setMessages(prev => [...prev, botMessage]);
+  } catch (error) {
+    console.error('Gemini error:', error);
+    const botMessage: Message = {
+      id: (Date.now() + 2).toString(),
+      text: 'Sorry, I couldn’t get an answer. Please try again.',
+      sender: 'bot',
+      timestamp: new Date(),
+    };
+    setMessages(prev => [...prev, botMessage]);
+  } finally {
+    setIsTyping(false);
+  }
+};
+
 
   const quickQuestions = [
     "How can I improve my posture?",
-    "Safe exercises for pregnancy?",
     "Tips for back pain relief",
     "Best sleeping positions"
   ];
 
-  const handleQuickQuestion = (question: string) => {
+  const handleQuickQuestion = async (question: string) => {
     setInputText(question);
+    await sendMessage();
   };
 
   return (
@@ -192,7 +205,7 @@ export default function ChatbotScreen() {
           </TouchableOpacity>
         </View>
         <Text style={styles.inputHint}>
-          Get personalized advice for your pregnancy journey
+          Get personalized advice for your journey
         </Text>
       </View>
     </KeyboardAvoidingView>

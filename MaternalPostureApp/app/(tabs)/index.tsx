@@ -247,7 +247,7 @@ export default function HomeScreen() {
                 onPress={openCamera}
                 style={{ backgroundColor: 'rgba(255,255,255,0.9)' }}
               >
-                Check Posture
+                Open Camera
               </Button>
             </View>
           </Card>

@@ -1,4 +1,4 @@
-import PhotoPreviewSection from '@/components/photopreviewsection';
+import PhotoPreviewSection from '@/components/PhotoPreviewSection';
 import { AntDesign } from '@expo/vector-icons';
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import { useRef, useState } from 'react';

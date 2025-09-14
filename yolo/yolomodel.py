@@ -13,7 +13,7 @@ def scan_objects():
         if not ret:
             break
 
-        results = model.predict(frame, conf=0.15)  
+        results = model.predict(frame, conf=0.2)  
 
         r = results[0]
 
